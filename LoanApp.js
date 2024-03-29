@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 
 const app = express();
 const PORT = process.env.PORT || 3009;
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/LoanApplication';
 
 async function findAvailablePort(port) {
   return new Promise((resolve, reject) => {
@@ -25,8 +26,8 @@ async function findAvailablePort(port) {
 
 async function connectToLoanDatabase() {
   try {
-    // await mongoose.connect('mongodb://localhost:27017/LoanApplication', { useNewUrlParser: true, useUnifiedTopology: true });
-    await mongoose.connect('mongodb://mongodb-container:27017/LoanApplication', { useNewUrlParser: true, useUnifiedTopology: true });
+    await mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+    // await mongoose.connect('mongodb://mongodb-container:27017/LoanApplication', { useNewUrlParser: true, useUnifiedTopology: true });
     console.log('Connected to Loan Database');
   } catch (error) {
     console.error('Error connecting to Loan Database:', error);
